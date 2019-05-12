@@ -7,19 +7,19 @@ set -e
 #####################################################
 
 # pull request 时不部署
-if [[ "false" != "$TRAVIS_PULL_REQUEST" ]]; then
+if [ "false" != "$TRAVIS_PULL_REQUEST" ]; then
 	echo "Not deploying pull requests."
 	exit
 fi
 
 # 只部署一次
-if [[ ! $WP_PULUGIN_DEPLOY ]]; then
+if [ ! $WP_PULUGIN_DEPLOY ]; then
 	echo "Not deploying."
 	exit
 fi
 
 # SVN 仓库未定义，发出提醒
-if [[ ! $SVN_REPO ]]; then
+if [ ! $SVN_REPO ]; then
 	echo "SVN repo is not specified."
 	exit
 fi
@@ -65,7 +65,7 @@ PLUGINVERSION=`grep "Version:" $BUILT_DIR/git/$MAINFILE | awk '{ print $NF}'`
 cd $BUILT_DIR
 echo "同步 Git 仓库到 SVN"
 
-if [[ $TRAVIS_TAG ]]; then
+if [ $TRAVIS_TAG ]; then
     rsync -a --exclude=".svn" --checksum --delete ./git/ ./svn/trunk/
 else
     cp ./git/readme.txt ./svn/trunk/ -f
@@ -110,7 +110,7 @@ cd $BUILT_DIR/svn
 svn stat
 
 # todo: 标签应该用 Git 标签还是插件版本号？
-if [[ $TRAVIS_TAG ]]; then
+if [ $TRAVIS_TAG ]; then
 
     #####################################################
     # 比较版本，如果两个版本不一样，退出
