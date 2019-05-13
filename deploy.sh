@@ -89,9 +89,8 @@ fi
 
 # 如果使用了 composer，进行安装和优化操作
 if [ -e "composer.json" ]; then
-    echo "composer install --no-dev & composer dump-autoload -o"
-    rm vendor/ -Rf
-    composer install --no-dev
+    echo "composer update --no-dev & composer dump-autoload -o"
+    composer update --no-dev
     composer dump-autoload -o
 fi
 
