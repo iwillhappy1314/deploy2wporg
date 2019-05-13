@@ -105,6 +105,8 @@ done
 #####################################################
 # 执行 SVN 操作
 #####################################################
+cd $BUILT_DIR/svn
+
 echo "Run svn add"
 svn st | grep '^!' | sed -e 's/\![ ]*/svn del -q /g' | sh
 echo "Run svn del"
