@@ -87,6 +87,14 @@ if [ -e ".svnignore" ]; then
     svn propset -q -R svn:ignore -F .svnignore .
 fi
 
+# 如果使用了 composer，进行安装和优化操作
+if [ -e "composer.json" ]; then
+    echo "composer install --no-dev & composer dump-autoload -o"
+    rm vendor/ -Rf
+    composer install --no-dev
+    composer dump-autoload -o
+fi
+
 # 删除忽略的文件
 for file in $(cat ".svnignore" 2>/dev/null)
 do
