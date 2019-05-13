@@ -89,9 +89,8 @@ fi
 
 # 如果使用了 composer，进行安装和优化操作
 if [ -e "composer.json" ]; then
-    echo "composer update --no-dev & composer dump-autoload -o"
-    composer update --no-dev
-    composer dump-autoload -o
+    echo "composer install --no-dev & composer dump-autoload -o"
+    composer install --no-dev --prefer-dist --optimize-autoloader
 fi
 
 # 删除忽略的文件
