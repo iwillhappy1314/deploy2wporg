@@ -69,12 +69,12 @@ if [ $TRAVIS_TAG ]; then
     rsync -a --exclude=".svn" --checksum --delete ./git/ ./svn/trunk/
 else
     cp ./git/readme.txt ./svn/trunk/ -f
-    cp ./git/assets/. ./svn/assets/ -Rf
+    cp ./git/assets/. ./svn/assets/ -fa
 fi
 
-# 同步完成后、移除 svn trunk 中的 .git 目录
+# 同步完成后、移除 svn trunk 中的 .git 和 assets 目录
 rm $BUILT_DIR/svn/trunk/.git -Rf
-
+rm $BUILT_DIR/svn/trunk/assets -Rf
 
 #####################################################
 # 设置忽略文件、删除忽略的文件
