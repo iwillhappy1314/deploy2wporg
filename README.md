@@ -1,10 +1,10 @@
-# Automated deploy to wordpress.org plugin repository from Travis CI
+# 自动从 Travis CI 发布插件到 wordpress.org
 
-## How to setup
+## 设置方法
 
 ### 添加以下配置到 `.travis.yml`.
 
-Deployment should be executed only `after_success`.
+只有在 `after_success` 后才执行发布操作
 
 ```
 after_success: curl -L https://raw.githubusercontent.com/iwillhappy1314/deploy2wporg/master/deploy.sh
@@ -52,13 +52,11 @@ bin/
 tests/
 ````
 
-This script runs `svn propset -R` automatically  when there is a `.svnignore`.
+有 `.svnignore`时，次脚本自动执行 `svn propset -R`
 
 ### 如果设置了 `bin/build.sh`， 部署时会自动运行
 
-If you are using `gulp`, `composer` or so, please place the `bin/build.sh`.
-
-`bin/build.sh` will be executed automatically.
+如果使用了 `gulp`, `composer` 等，请放在 `bin/build.sh` 中，`bin/build.sh` 将自动执行
 
 ## 提交方式
 
@@ -71,31 +69,26 @@ $ git push origin 1.0.0
 
 assets 目录中的文件和 readme.txt 这两个文件总是会提交。
 
-## Integration Checklist
+## 集成步骤
 
-You can use following checklist to integrate this project in your plugin.
+按照下面的代办事项，集成到需要发布的插件项目中。
 
-* [ ]  Add `after_success: curl -L https://raw.githubusercontent.com/miya0001/travis2wpplugin/master/deploy.sh | bash` into `.travis.yml` like [this](https://github.com/tarosky/logbook/blob/master/.travis.yml#L57).
-* [ ] Define the `WP_PULUGIN_DEPLOY=1` in the `.travis.yml` like [this](https://github.com/tarosky/logbook/blob/master/.travis.yml#L14).
-* [ ] Run `travis encrypt SVN_USER=<your-account> SVN_PASS=<your-password>` and paste the output into `.travis.yml` like [this](https://github.com/tarosky/logbook/blob/master/.travis.yml#L43-L46).
-* [ ] Place the `.distignore` that are list of files to exclude to commit SVN. It is an [example](https://github.com/tarosky/logbook/blob/master/.distignore).
-* [ ] If you need to run `npm install` or `composer install` or so, place the `build.sh` that will be executed automatically. This is an [example](https://github.com/tarosky/logbook/blob/master/bin/build.sh).
+* [ ]  添加 `after_success: curl -L https://raw.githubusercontent.com/miya0001/travis2wpplugin/master/deploy.sh | bash` 到 `.travis.yml`，如[示例](https://github.com/tarosky/logbook/blob/master/.travis.yml#L57).
+* [ ] 在  `.travis.yml` 中定义 `WP_PULUGIN_DEPLOY=1`，如[示例](https://github.com/tarosky/logbook/blob/master/.travis.yml#L14).
+* [ ] 运行 `travis encrypt SVN_USER=<your-account> SVN_PASS=<your-password>` 然后粘贴输出到 `.travis.yml`， 如[示例](https://github.com/tarosky/logbook/blob/master/.travis.yml#L43-L46).
+* [ ] 如果需要排除文件，添加文件列表到 `.svnignore` 中，如[示例](https://github.com/tarosky/logbook/blob/master/.distignore).
+* [ ] 如果需要 `npm install` 或 `composer install` 添加他们到 `build.sh` 中，[示例](https://github.com/tarosky/logbook/blob/master/bin/build.sh).
 
-Finnaly, you can release your plugin like following.
+发布插件时，打标签即可触发自动发布流程。
 
 ```
 $ git tag 1.0.0
 $ git push origin 1.0.0
 ```
 
-## Example project
+## 示例项目
 
-We are using this project in following plugins.
+我们在以下插件中使用了此项目，请参考。
 
-Please check logs of Travis CI.
 
-* https://github.com/miya0001/simple-map
-* https://github.com/miya0001/oembed-gist
-* https://github.com/miya0001/content-template-engine
-* https://github.com/miya0001/wp-total-hacks
-* https://github.com/torounit/hello-kushimoto/
+* https://github.com/iwillhappy1314/wenprise-pinyin-slug
