@@ -55,7 +55,8 @@ fi
 #####################################################
 READMEVERSION=$(grep "Stable tag" "$BUILT_DIR"/git/readme.txt | awk '{ print $NF}')
 PLUGINVERSION=$(grep "Version:" "$BUILT_DIR"/git/"$MAINFILE" | awk '{ print $NF}')
-LATEST_TAG=$(git describe --abbrev=0)
+# shellcheck disable=SC2046
+LATEST_TAG=$(git describe --tags $(git rev-list --tags --max-count=1))
 
 #####################################################
 # 同步文件
@@ -99,8 +100,8 @@ if [ -e ".svnignore" ]; then
 fi
 
 # 删除忽略的文件
-# shellcheck disable=SC2013
 echo "删除忽略文件"
+# shellcheck disable=SC2013
 for file in $(cat ".svnignore" 2>/dev/null); do
   rm "$file" -Rf
 done
